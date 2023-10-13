@@ -50,8 +50,6 @@ class _ItemState extends State<Item> {
                   setState(() {
                     print('Recarregando a tela inicial');
                   });
-                } else {
-                  print('Value veio null');
                 }
               });
             },

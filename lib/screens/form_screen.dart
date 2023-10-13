@@ -4,6 +4,7 @@ import 'package:my_app/components/shared/legenda.dart';
 import 'package:my_app/components/form/quantidade.dart';
 import 'package:my_app/components/form/setas.dart';
 import 'package:my_app/data/item_dao.dart';
+import 'package:my_app/screens/exclusion_screen.dart';
 
 class FormScreen extends StatefulWidget {
   FormScreen(
@@ -93,7 +94,9 @@ class _FormScreenState extends State<FormScreen> {
                         Container(
                           alignment: Alignment.center,
                           child: Text(
-                            controllerId.text.isEmpty ? 'Cadastro de Item' : 'Edição de Item',
+                            controllerId.text.isEmpty
+                                ? 'Cadastro de Item'
+                                : 'Alteração de Item',
                             style: TextStyle(fontSize: 25),
                             softWrap: true,
                           ),
@@ -102,8 +105,7 @@ class _FormScreenState extends State<FormScreen> {
                           margin: EdgeInsets.only(left: 10),
                           child: IconButton(
                             onPressed: () {
-                              Navigator.of(context)
-                                  .pop();
+                              Navigator.of(context).pop();
                             },
                             icon: Icon(Icons.arrow_back), // Ícone de voltar.
                           ),
@@ -296,16 +298,19 @@ class _FormScreenState extends State<FormScreen> {
                             margin: EdgeInsets.only(left: 10),
                             child: IconButton(
                               onPressed: () async {
-                                await ItemDao().excluirItem(controllerId.text);
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text(_errorMessage ??
-                                        (controllerId.text.isEmpty
-                                            ? 'Cadastrando novo item!'
-                                            : 'Salvando alterações')),
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (contextNew) => ExclusionScreen(
+                                      nome: widget.nome,
+                                      id: widget.id,
+                                    ),
                                   ),
-                                );
-                                Navigator.of(context).pop();
+                                ).then((result) {
+                                  if (result == true) {
+                                    Navigator.of(context).pop();
+                                  }
+                                });
                               },
                               icon: Icon(Icons.delete_forever),
                             ),

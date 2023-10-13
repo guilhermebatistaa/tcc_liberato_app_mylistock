@@ -77,7 +77,7 @@ class _InitialScreenState extends State<InitialScreen> {
                       children: [
                         Icon(Icons.error_outline, size: 128),
                         Text(
-                          'Não há nenhuma Tarefa',
+                          'Não há nenhum item',
                           style: TextStyle(fontSize: 32),
                         ),
                       ],
