@@ -87,36 +87,28 @@ class _FormScreenState extends State<FormScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Container(
-                      //color: Colors.amber,
-                      //margin: EdgeInsets.fromLTRB(10, 5, 10, 10),
-                      //padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
-                      child: Row(
-                        //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Container(
-                            margin: EdgeInsets.only(left: 10),
-                            child: IconButton(
-                              onPressed: () {
-                                // Adicione a ação que você deseja quando o botão for pressionado.
-                                Navigator.of(context)
-                                    .pop(); // Exemplo: Voltar para a tela anterior.
-                              },
-                              icon: Icon(Icons.arrow_back), // Ícone de voltar.
-                            ),
+                    Stack(
+                      alignment: Alignment.centerLeft,
+                      children: [
+                        Container(
+                          alignment: Alignment.center,
+                          child: Text(
+                            controllerId.text.isEmpty ? 'Cadastro de Item' : 'Edição de Item',
+                            style: TextStyle(fontSize: 25),
+                            softWrap: true,
                           ),
-                          Container(
-                            alignment: Alignment.center,
-                            margin: EdgeInsets.only(right: 58),
-                            width: 255,
-                            child: Text(
-                              'Cadastro de Item',
-                              style: TextStyle(fontSize: 25),
-                              softWrap: true,
-                            ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(left: 10),
+                          child: IconButton(
+                            onPressed: () {
+                              Navigator.of(context)
+                                  .pop();
+                            },
+                            icon: Icon(Icons.arrow_back), // Ícone de voltar.
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                     Container(
                       child: Row(
@@ -263,31 +255,15 @@ class _FormScreenState extends State<FormScreen> {
                         ],
                       ),
                     ),
-                    Container(
-                      child: Row(children: [
+                    Stack(
+                      alignment: Alignment.centerLeft,
+                      children: [
                         Container(
-                          margin: EdgeInsets.only(left: 10),
-                          child: IconButton(
+                          alignment: Alignment.center,
+                          child: ElevatedButton(
                             onPressed: () async {
-                              await ItemDao().excluirItem(controllerId.text);
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text(_errorMessage ??
-                                      (controllerId.text.isEmpty
-                                          ? 'Cadastrando novo item!'
-                                          : 'Salvando alterações')),
-                                ),
-                              );
-                              Navigator.of(context)
-                                  .pop(); // Exemplo: Voltar para a tela anterior.
-                            },
-                            icon: Icon(Icons.arrow_back), // Ícone de voltar.
-                          ),
-                        ),
-                        ElevatedButton(
-                          onPressed: () async {
-                            if (_formKey.currentState!.validate()) {
-                              await ItemDao().salvarItem(Item(
+                              if (_formKey.currentState!.validate()) {
+                                await ItemDao().salvarItem(Item(
                                   controllerNome.text,
                                   controllerCompraCasual.text,
                                   controllerEstoqueAtual.text,
@@ -295,23 +271,46 @@ class _FormScreenState extends State<FormScreen> {
                                   controllerPrecoMinimo.text,
                                   controllerEstoqueMaximo.text,
                                   controllerEstoqueMinimo.text,
-                                  controllerId.text));
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text(_errorMessage ??
-                                      (controllerId.text.isEmpty
-                                          ? 'Cadastrando novo item!'
-                                          : 'Salvando alterações')),
-                                ),
-                              );
-                              Navigator.pop(context);
-                            }
-                          },
-                          child: Text(
-                            controllerId.text.isEmpty ? 'Adicionar!' : 'Salvar',
+                                  controllerId.text,
+                                ));
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(_errorMessage ??
+                                        (controllerId.text.isEmpty
+                                            ? 'Cadastrando novo item!'
+                                            : 'Salvando alterações')),
+                                  ),
+                                );
+                                Navigator.pop(context);
+                              }
+                            },
+                            child: Text(
+                              controllerId.text.isEmpty
+                                  ? 'Adicionar'
+                                  : 'Salvar',
+                            ),
                           ),
-                        )
-                      ]),
+                        ),
+                        if (controllerId.text != "")
+                          Container(
+                            margin: EdgeInsets.only(left: 10),
+                            child: IconButton(
+                              onPressed: () async {
+                                await ItemDao().excluirItem(controllerId.text);
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(_errorMessage ??
+                                        (controllerId.text.isEmpty
+                                            ? 'Cadastrando novo item!'
+                                            : 'Salvando alterações')),
+                                  ),
+                                );
+                                Navigator.of(context).pop();
+                              },
+                              icon: Icon(Icons.delete_forever),
+                            ),
+                          ),
+                      ],
                     )
                   ],
                 ),

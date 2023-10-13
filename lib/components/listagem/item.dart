@@ -45,9 +45,15 @@ class _ItemState extends State<Item> {
                     id: widget.id,
                   ),
                 ),
-              ).then((value) => setState(() {
+              ).then((value) {
+                if (value != null) {
+                  setState(() {
                     print('Recarregando a tela inicial');
-                  }));
+                  });
+                } else {
+                  print('Value veio null');
+                }
+              });
             },
             child: Container(
               margin: EdgeInsets.symmetric(horizontal: 20),
