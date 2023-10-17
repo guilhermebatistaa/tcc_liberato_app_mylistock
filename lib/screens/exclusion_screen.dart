@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/data/item_dao.dart';
+import 'package:my_app/services/ItemService.dart';
 
 class ExclusionScreen extends StatefulWidget {
   ExclusionScreen({this.nome, this.id, Key? key});
@@ -78,7 +79,7 @@ class _ExclusionScreenState extends State<ExclusionScreen> {
                     ),
                     ElevatedButton(
                       onPressed: () async {
-                        await ItemDao().excluirItem(widget.id!);
+                        await ItemService().excluirItem(widget.id!);
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
                             content: Text(

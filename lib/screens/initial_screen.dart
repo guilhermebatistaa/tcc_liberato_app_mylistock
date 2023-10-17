@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:my_app/components/listagem/item.dart';
+import 'package:my_app/components/listagem/ItemWidget.dart';
 import 'package:my_app/data/item_dao.dart';
-import 'package:my_app/data/item_inherited.dart';
 import 'package:my_app/screens/form_screen.dart';
+import 'package:my_app/services/ItemService.dart';
 
 class InitialScreen extends StatefulWidget {
   const InitialScreen({super.key});
@@ -29,10 +29,10 @@ class _InitialScreenState extends State<InitialScreen> {
       ),
       body: Padding(
         padding: EdgeInsets.only(top: 8, bottom: 80),
-        child: FutureBuilder<List<Item>>(
-          future: ItemDao().buscarTodosOsItens(),
+        child: FutureBuilder<List<ItemWidget>>(
+          future: ItemService().buscarTodosOsItens(),
           builder: (context, snapshot) {
-            List<Item>? items = snapshot.data;
+            List<ItemWidget>? items = snapshot.data;
             switch (snapshot.connectionState) {
               case ConnectionState.none:
                 return Center(
@@ -67,7 +67,7 @@ class _InitialScreenState extends State<InitialScreen> {
                     return ListView.builder(
                         itemCount: items.length,
                         itemBuilder: (BuildContext context, int index) {
-                          final Item tarefa = items[index];
+                          final ItemWidget tarefa = items[index];
                           return tarefa;
                         });
                   }

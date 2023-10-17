@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class CriarMensagem extends StatelessWidget {
-  const CriarMensagem({
+class MensagemWidget extends StatelessWidget {
+  const MensagemWidget({
     super.key,
   });
 

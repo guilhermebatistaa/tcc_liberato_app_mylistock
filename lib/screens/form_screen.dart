@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:my_app/components/listagem/item.dart';
+import 'package:my_app/Models/Item.dart';
+import 'package:my_app/components/listagem/ItemWidget.dart';
 import 'package:my_app/components/shared/legenda.dart';
 import 'package:my_app/components/form/quantidade.dart';
 import 'package:my_app/components/form/setas.dart';
 import 'package:my_app/data/item_dao.dart';
 import 'package:my_app/screens/exclusion_screen.dart';
+import 'package:my_app/services/ItemService.dart';
 
 class FormScreen extends StatefulWidget {
   FormScreen(
@@ -174,7 +176,7 @@ class _FormScreenState extends State<FormScreen> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      CriarLegenda(43, 'Compra Casual:'),
+                                      LegendaWidget(43, 'Compra Casual:'),
                                       criarCampoQuantidade(
                                           40, controllerCompraCasual),
                                       criarBotaoSetas(), //controllerEstAtu
@@ -188,7 +190,7 @@ class _FormScreenState extends State<FormScreen> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    CriarLegenda(32, 'Preço Máx.:'),
+                                    LegendaWidget(32, 'Preço Máx.:'),
                                     criarCampoQuantidade(
                                         60, controllerPrecoMaximo),
                                     criarBotaoSetas(), //controllerPreMax
@@ -201,7 +203,7 @@ class _FormScreenState extends State<FormScreen> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    CriarLegenda(32, 'Preço Mín.:'),
+                                    LegendaWidget(32, 'Preço Mín.:'),
                                     criarCampoQuantidade(
                                         60, controllerPrecoMinimo),
                                     criarBotaoSetas(), //controllerPreMin
@@ -219,7 +221,7 @@ class _FormScreenState extends State<FormScreen> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    CriarLegenda(31, 'Est. Atual:'),
+                                    LegendaWidget(31, 'Est. Atual:'),
                                     criarCampoQuantidade(
                                         40, controllerEstoqueAtual),
                                     criarBotaoSetas(), //controllerEstAtu
@@ -232,7 +234,7 @@ class _FormScreenState extends State<FormScreen> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    CriarLegenda(30, 'Est. Máx.:'),
+                                    LegendaWidget(30, 'Est. Máx.:'),
                                     criarCampoQuantidade(
                                         40, controllerEstoqueMaximo),
                                     criarBotaoSetas(), //controllerEstmax
@@ -245,7 +247,7 @@ class _FormScreenState extends State<FormScreen> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    CriarLegenda(30, 'Est. Mín.:'),
+                                    LegendaWidget(30, 'Est. Mín.:'),
                                     criarCampoQuantidade(
                                         40, controllerEstoqueMinimo),
                                     criarBotaoSetas(), //controllerEstMin
@@ -265,16 +267,21 @@ class _FormScreenState extends State<FormScreen> {
                           child: ElevatedButton(
                             onPressed: () async {
                               if (_formKey.currentState!.validate()) {
-                                await ItemDao().salvarItem(Item(
-                                  controllerNome.text,
-                                  controllerCompraCasual.text,
-                                  controllerEstoqueAtual.text,
-                                  controllerPrecoMaximo.text,
-                                  controllerPrecoMinimo.text,
-                                  controllerEstoqueMaximo.text,
-                                  controllerEstoqueMinimo.text,
-                                  controllerId.text,
-                                ));
+                                Item item = Item();
+                                item.nome = controllerNome.text;
+                                item.compraCasual = controllerCompraCasual.text;
+                                item.estoqueAtual = controllerEstoqueAtual.text;
+                                item.precoMaximo = controllerPrecoMaximo.text;
+                                item.precoMinimo = controllerPrecoMinimo.text;
+                                item.estoqueMaximo =
+                                    controllerEstoqueMaximo.text;
+                                item.estoqueMinimo =
+                                    controllerEstoqueMinimo.text;
+                                item.id = controllerId.text;
+                                
+                                await ItemService()
+                                    .salvarItem(ItemWidget(item));
+
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
                                     content: Text(_errorMessage ??

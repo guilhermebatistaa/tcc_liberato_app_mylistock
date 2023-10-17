@@ -1,28 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:my_app/Models/Item.dart';
 import 'package:my_app/components/shared/legenda.dart';
 import 'package:my_app/components/listagem/mensagem.dart';
 import 'package:my_app/components/listagem/quantidade.dart';
 import 'package:my_app/screens/form_screen.dart';
 
-class Item extends StatefulWidget {
-  String nome;
-  String compraCasual;
-  String estoqueAtual;
-  String precoMaximo;
-  String precoMinimo;
-  String estoqueMaximo;
-  String estoqueMinimo;
-  String id;
+class ItemWidget extends StatefulWidget {
+  Item item;
 
-  Item(this.nome, this.compraCasual, this.estoqueAtual, this.precoMaximo,
-      this.precoMinimo, this.estoqueMaximo, this.estoqueMinimo, this.id,
+  ItemWidget(this.item,
       {super.key});
 
   @override
-  State<Item> createState() => _ItemState();
+  State<ItemWidget> createState() => _ItemWidgetState();
 }
 
-class _ItemState extends State<Item> {
+class _ItemWidgetState extends State<ItemWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -35,14 +28,14 @@ class _ItemState extends State<Item> {
                 context,
                 MaterialPageRoute(
                   builder: (contextNew) => FormScreen(
-                    nome: widget.nome,
-                    compraCasual: widget.compraCasual,
-                    estoqueAtual: widget.estoqueAtual,
-                    precoMaximo: widget.precoMaximo,
-                    precoMinimo: widget.precoMinimo,
-                    estoqueMaximo: widget.estoqueMaximo,
-                    estoqueMinimo: widget.estoqueMinimo,
-                    id: widget.id,
+                    nome: widget.item.nome,
+                    compraCasual: widget.item.compraCasual,
+                    estoqueAtual: widget.item.estoqueAtual,
+                    precoMaximo: widget.item.precoMaximo,
+                    precoMinimo: widget.item.precoMinimo,
+                    estoqueMaximo: widget.item.estoqueMaximo,
+                    estoqueMinimo: widget.item.estoqueMinimo,
+                    id: widget.item.id,
                   ),
                 ),
               ).then((value) {
@@ -83,7 +76,7 @@ class _ItemState extends State<Item> {
                               child: Align(
                                 alignment: Alignment.centerLeft,
                                 child: Text(
-                                  widget.nome,
+                                  widget.item.nome,
                                   style: TextStyle(fontSize: 12),
                                 ),
                               ),
@@ -110,9 +103,8 @@ class _ItemState extends State<Item> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    CriarLegenda(44, 'Compra Cas.:'),
-                                    CriarCampoQuantidade(
-                                        40, widget.compraCasual),
+                                    LegendaWidget(44, 'Compra Cas.:'),
+                                    QuantidadeWidget(40, widget.item.compraCasual),
                                   ],
                                 ),
                               ),
@@ -124,8 +116,8 @@ class _ItemState extends State<Item> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  CriarLegenda(32, 'Preço Máx.:'),
-                                  CriarCampoQuantidade(60, widget.precoMaximo),
+                                  LegendaWidget(32, 'Preço Máx.:'),
+                                  QuantidadeWidget(60, widget.item.precoMaximo),
                                 ],
                               ),
                             ),
@@ -136,8 +128,8 @@ class _ItemState extends State<Item> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  CriarLegenda(32, 'Preço Mín.:'),
-                                  CriarCampoQuantidade(60, widget.precoMinimo),
+                                  LegendaWidget(32, 'Preço Mín.:'),
+                                  QuantidadeWidget(60, widget.item.precoMinimo),
                                 ],
                               ),
                             )
@@ -153,8 +145,8 @@ class _ItemState extends State<Item> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  CriarLegenda(31, 'Est. Atu:'),
-                                  CriarCampoQuantidade(40, widget.estoqueAtual),
+                                  LegendaWidget(31, 'Est. Atu:'),
+                                  QuantidadeWidget(40, widget.item.estoqueAtual),
                                 ],
                               ),
                             ),
@@ -165,9 +157,8 @@ class _ItemState extends State<Item> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  CriarLegenda(30, 'Est. Máx.:'),
-                                  CriarCampoQuantidade(
-                                      40, widget.estoqueMaximo),
+                                  LegendaWidget(30, 'Est. Máx.:'),
+                                  QuantidadeWidget(40, widget.item.estoqueMaximo),
                                 ],
                               ),
                             ),
@@ -178,9 +169,8 @@ class _ItemState extends State<Item> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  CriarLegenda(30, 'Est. Mín.:'),
-                                  CriarCampoQuantidade(
-                                      40, widget.estoqueMinimo),
+                                  LegendaWidget(30, 'Est. Mín.:'),
+                                  QuantidadeWidget(40, widget.item.estoqueMinimo),
                                 ],
                               ),
                             )
@@ -189,7 +179,7 @@ class _ItemState extends State<Item> {
                       ],
                     ),
                   ),
-                  CriarMensagem(),
+                  MensagemWidget(),
                 ],
               ),
             ),
