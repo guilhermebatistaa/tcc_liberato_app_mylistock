@@ -1,10 +1,10 @@
 class Item {
   late String nome;
-  late String compraCasual;
-  late String estoqueAtual;
-  late String precoMaximo;
-  late String precoMinimo;
-  late String estoqueMaximo;
-  late String estoqueMinimo;
+  String compraCasual = "0";
+  String estoqueAtual = "0";
+  String precoMaximo = "0";
+  String precoMinimo = "0";
+  String estoqueMaximo = "0";
+  String estoqueMinimo = "0";
   late String id;
 }

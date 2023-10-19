@@ -177,9 +177,9 @@ class _FormScreenState extends State<FormScreen> {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       LegendaWidget(43, 'Compra Casual:'),
-                                      criarCampoQuantidade(
+                                      CampoQuantidade(
                                           40, controllerCompraCasual),
-                                      criarBotaoSetas(), //controllerEstAtu
+                                      BotaoSetas(), //controllerEstAtu
                                     ],
                                   ),
                                 ),
@@ -191,9 +191,9 @@ class _FormScreenState extends State<FormScreen> {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     LegendaWidget(32, 'Preço Máx.:'),
-                                    criarCampoQuantidade(
+                                    CampoQuantidade(
                                         60, controllerPrecoMaximo),
-                                    criarBotaoSetas(), //controllerPreMax
+                                    BotaoSetas(), //controllerPreMax
                                   ],
                                 ),
                               ),
@@ -204,9 +204,9 @@ class _FormScreenState extends State<FormScreen> {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     LegendaWidget(32, 'Preço Mín.:'),
-                                    criarCampoQuantidade(
+                                    CampoQuantidade(
                                         60, controllerPrecoMinimo),
-                                    criarBotaoSetas(), //controllerPreMin
+                                    BotaoSetas(), //controllerPreMin
                                   ],
                                 ),
                               )
@@ -219,12 +219,12 @@ class _FormScreenState extends State<FormScreen> {
                                 width: 110,
                                 child: Row(
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                    MainAxisAlignment.spaceBetween,
                                   children: [
                                     LegendaWidget(31, 'Est. Atual:'),
-                                    criarCampoQuantidade(
+                                    CampoQuantidade(
                                         40, controllerEstoqueAtual),
-                                    criarBotaoSetas(), //controllerEstAtu
+                                    BotaoSetas(), //controllerEstAtu
                                   ],
                                 ),
                               ),
@@ -235,9 +235,9 @@ class _FormScreenState extends State<FormScreen> {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     LegendaWidget(30, 'Est. Máx.:'),
-                                    criarCampoQuantidade(
+                                    CampoQuantidade(
                                         40, controllerEstoqueMaximo),
-                                    criarBotaoSetas(), //controllerEstmax
+                                    BotaoSetas(), //controllerEstmax
                                   ],
                                 ),
                               ),
@@ -248,9 +248,9 @@ class _FormScreenState extends State<FormScreen> {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     LegendaWidget(30, 'Est. Mín.:'),
-                                    criarCampoQuantidade(
+                                    CampoQuantidade(
                                         40, controllerEstoqueMinimo),
-                                    criarBotaoSetas(), //controllerEstMin
+                                    BotaoSetas(), //controllerEstMin
                                   ],
                                 ),
                               )
@@ -278,7 +278,7 @@ class _FormScreenState extends State<FormScreen> {
                                 item.estoqueMinimo =
                                     controllerEstoqueMinimo.text;
                                 item.id = controllerId.text;
-                                
+
                                 await ItemService()
                                     .salvarItem(ItemWidget(item));
 

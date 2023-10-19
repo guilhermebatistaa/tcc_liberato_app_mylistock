@@ -1,4 +1,4 @@
-import 'package:my_app/data/item_dao.dart';
+import 'package:my_app/Models/TabelaItem.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -8,7 +8,7 @@ Future<Database> getDatabase() async {
   return openDatabase(
     path,
     onCreate: (db, version) {
-      db.execute(ItemDao.tableSql);
+      db.execute(TabelaItem.tableSqlCreate);
     },
     version: 1,
   );

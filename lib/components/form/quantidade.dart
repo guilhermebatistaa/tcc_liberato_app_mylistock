@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class criarCampoQuantidade extends StatelessWidget {
+class CampoQuantidade extends StatelessWidget {
   double largura;
   TextEditingController controller;
 
-  criarCampoQuantidade(this.largura, this.controller, {
+  CampoQuantidade(this.largura, this.controller, {
     super.key,
   });
 

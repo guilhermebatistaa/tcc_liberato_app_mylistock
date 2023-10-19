@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class criarBotaoSetas extends StatelessWidget {
+class BotaoSetas extends StatelessWidget {
   //final TextEditingController controller;
 
-  const criarBotaoSetas({
+  const BotaoSetas({
     //this.controller,
     super.key,
   });

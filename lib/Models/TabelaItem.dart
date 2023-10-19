@@ -1,6 +1,6 @@
 class TabelaItem {
-  static const String tablename = 'ItemTable';
-  static const String name = 'name';
+  static const String nomeTabela = 'Item';
+  static const String nome = 'nome';
   static const String compraCasual = 'compraCasual';
   static const String estoqueAtual = 'estoqueAtual';
   static const String precoMinimo = 'precoMinimo';
@@ -9,9 +9,9 @@ class TabelaItem {
   static const String estoqueMinimo = 'estoqueMinimo';
   static const String id = 'id';
 
-  static const String tableSql = 'CREATE TABLE IF NOT EXISTS $tablename('
+  static const String tableSqlCreate = 'CREATE TABLE IF NOT EXISTS ${TabelaItem.nomeTabela}('
       '$id INTEGER PRIMARY KEY AUTOINCREMENT, '
-      '$name TEXT, '
+      '$nome TEXT, '
       '$compraCasual INTEGER, '
       '$estoqueAtual INTEGER, '
       '$precoMaximo REAL, '
