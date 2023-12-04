@@ -85,7 +85,7 @@ class _FormScreenState extends State<FormScreen> {
                 border: Border.all(width: 2),
               ),
               child: Container(
-                color: Color.fromRGBO(46, 139, 87, 10),
+                color: Color.fromRGBO(119, 136, 153, 10),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -176,7 +176,7 @@ class _FormScreenState extends State<FormScreen> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      LegendaWidget(43, 'Compra Casual:'),
+                                      LegendaWidget(44, 'Compra Casual:'),
                                       CampoQuantidade(
                                           40, controllerCompraCasual),
                                       BotaoSetas(), //controllerEstAtu
@@ -190,9 +190,8 @@ class _FormScreenState extends State<FormScreen> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    LegendaWidget(32, 'Preço Máx.:'),
-                                    CampoQuantidade(
-                                        60, controllerPrecoMaximo),
+                                    LegendaWidget(33, 'Preço Máx.:'),
+                                    CampoQuantidade(60, controllerPrecoMaximo),
                                     BotaoSetas(), //controllerPreMax
                                   ],
                                 ),
@@ -203,9 +202,8 @@ class _FormScreenState extends State<FormScreen> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    LegendaWidget(32, 'Preço Mín.:'),
-                                    CampoQuantidade(
-                                        60, controllerPrecoMinimo),
+                                    LegendaWidget(33, 'Preço Mín.:'),
+                                    CampoQuantidade(60, controllerPrecoMinimo),
                                     BotaoSetas(), //controllerPreMin
                                   ],
                                 ),
@@ -219,11 +217,10 @@ class _FormScreenState extends State<FormScreen> {
                                 width: 110,
                                 child: Row(
                                   mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
-                                    LegendaWidget(31, 'Est. Atual:'),
-                                    CampoQuantidade(
-                                        40, controllerEstoqueAtual),
+                                    LegendaWidget(33, 'Est. Atual:'),
+                                    CampoQuantidade(40, controllerEstoqueAtual),
                                     BotaoSetas(), //controllerEstAtu
                                   ],
                                 ),
@@ -234,7 +231,7 @@ class _FormScreenState extends State<FormScreen> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    LegendaWidget(30, 'Est. Máx.:'),
+                                    LegendaWidget(33, 'Est. Máx.:'),
                                     CampoQuantidade(
                                         40, controllerEstoqueMaximo),
                                     BotaoSetas(), //controllerEstmax
@@ -247,7 +244,7 @@ class _FormScreenState extends State<FormScreen> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    LegendaWidget(30, 'Est. Mín.:'),
+                                    LegendaWidget(33, 'Est. Mín.:'),
                                     CampoQuantidade(
                                         40, controllerEstoqueMinimo),
                                     BotaoSetas(), //controllerEstMin

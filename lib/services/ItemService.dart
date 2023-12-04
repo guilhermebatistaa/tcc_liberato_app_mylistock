@@ -12,8 +12,7 @@ class ItemService {
     List<ItemWidget> listaDeItens = transformarMapParaList(listaDeMapasDeItens);
 
     if (ordenadoPorPrioridade) {
-
-      //Primeira Parte
+      //Primeira Parte - Compra Casual
       List<ItemWidget> itensComCompraCasual =
           listaDeItens.where((item) => item.item.compraCasual != "0").toList();
 
@@ -27,14 +26,14 @@ class ItemService {
         return a.item.nome.compareTo(b.item.nome);
       });
 
-      List<ItemWidget> listaDeItensOrdenadaPrioridade = [];
+      List<ItemWidget> retornoListaDeItensOrdenadaPrioridade = [];
       for (var item in itensComCompraCasual) {
-        listaDeItensOrdenadaPrioridade.add(item);
+        item.item.nivel = 0;
+        retornoListaDeItensOrdenadaPrioridade.add(item);
         listaDeItens.remove(item);
       }
-      
 
-      //Segunda Parte
+      //Segunda Parte - Estoque com Urgência
       List<ItemWidget> listaItensComEstoqueBaixo = listaDeItens.where((item) {
         int estoqueAtual = int.tryParse(item.item.estoqueAtual)!;
         int estoqueMinimo = int.tryParse(item.item.estoqueMinimo)!;
@@ -55,16 +54,16 @@ class ItemService {
       });
 
       for (var item in listaItensComEstoqueBaixo) {
-        listaDeItensOrdenadaPrioridade.add(item);
+        item.item.nivel = 1;
+        retornoListaDeItensOrdenadaPrioridade.add(item);
         listaDeItens.remove(item);
       }
 
-
-      //Terceira Parte
+      //Terceira Parte - Estoque Médio
       List<ItemWidget> listaItensComEstoqueMedio = listaDeItens.where((item) {
         int estoqueAtual = int.tryParse(item.item.estoqueAtual)!;
         int estoqueMaximo = int.tryParse(item.item.estoqueMaximo)!;
-        return estoqueAtual <= estoqueMaximo;
+        return estoqueAtual < estoqueMaximo;
       }).toList();
 
       listaItensComEstoqueMedio.sort((a, b) {
@@ -81,16 +80,16 @@ class ItemService {
       });
 
       for (var item in listaItensComEstoqueMedio) {
-        listaDeItensOrdenadaPrioridade.add(item);
+        item.item.nivel = 2;
+        retornoListaDeItensOrdenadaPrioridade.add(item);
         listaDeItens.remove(item);
       }
 
-
-      //Quarta Parte
+      //Quarta Parte - Estoque Cheio
       List<ItemWidget> listaItensComEstoqueAlto = listaDeItens.where((item) {
         int estoqueAtual = int.tryParse(item.item.estoqueAtual)!;
         int estoqueMaximo = int.tryParse(item.item.estoqueMaximo)!;
-        return estoqueAtual > estoqueMaximo;
+        return estoqueAtual >= estoqueMaximo;
       }).toList();
 
       listaItensComEstoqueAlto.sort((a, b) {
@@ -107,16 +106,16 @@ class ItemService {
       });
 
       for (var item in listaItensComEstoqueAlto) {
-        listaDeItensOrdenadaPrioridade.add(item);
+        item.item.nivel = 3;
+        retornoListaDeItensOrdenadaPrioridade.add(item);
         listaDeItens.remove(item);
       }
 
-      return listaDeItensOrdenadaPrioridade;
+      return retornoListaDeItensOrdenadaPrioridade;
     }
 
     return listaDeItens;
   }
-
 
   Future<List<ItemWidget>> procurarItem({String? nome, String? id}) async {
     List<Map<String, dynamic>> listaDeMapaDoItem = [];
@@ -152,7 +151,6 @@ class ItemService {
 
     return retornoListaDeItens;
   }
-
 
   salvarItem(ItemWidget itemWidget) async {
     var itemNomeExiste = await procurarItem(nome: itemWidget.item.nome);
@@ -202,7 +200,6 @@ class ItemService {
 
     return retornoMapaDeItens;
   }
-
 
   excluirItem(String id) async {
     return await ItemDao().excluirItem(id);

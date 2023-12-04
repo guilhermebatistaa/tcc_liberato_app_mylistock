@@ -58,8 +58,8 @@ class ItemDao {
     final Database bancoDeDados = await getDatabase();
 
     return bancoDeDados.delete(
-      TabelaItem.nome,
-      where: '$TabelaItem.id = ?',
+      TabelaItem.nomeTabela,
+      where: '${TabelaItem.id} = ?',
       whereArgs: [id],
     );
   }

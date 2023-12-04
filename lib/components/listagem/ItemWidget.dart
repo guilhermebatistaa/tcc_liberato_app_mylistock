@@ -8,8 +8,7 @@ import 'package:my_app/screens/form_screen.dart';
 class ItemWidget extends StatefulWidget {
   Item item;
 
-  ItemWidget(this.item,
-      {super.key});
+  ItemWidget(this.item, {super.key});
 
   @override
   State<ItemWidget> createState() => _ItemWidgetState();
@@ -50,7 +49,13 @@ class _ItemWidgetState extends State<ItemWidget> {
               margin: EdgeInsets.symmetric(horizontal: 20),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(4.0),
-                color: Color.fromRGBO(46, 139, 87, 10),
+                color: widget.item.nivel == 0
+                    ? Color.fromRGBO(165, 42, 42, 1.0) // Vermelho
+                    : widget.item.nivel == 1
+                        ? Color.fromRGBO(255, 69, 0, 1.0) // Verde
+                        : widget.item.nivel == 2
+                            ? Color.fromRGBO(255, 215, 0, 1.0) // Azul
+                            : Color.fromRGBO(46, 139, 87, 10),
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -98,13 +103,14 @@ class _ItemWidgetState extends State<ItemWidget> {
                               alignment: Alignment.centerRight,
                               padding: EdgeInsets.only(top: 5, bottom: 5),
                               child: SizedBox(
-                                width: 87,
+                                width: 84,
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    LegendaWidget(44, 'Compra Cas.:'),
-                                    QuantidadeWidget(40, widget.item.compraCasual),
+                                    LegendaWidget(44, 'Comp. Cas.:'),
+                                    QuantidadeWidget(
+                                        40, widget.item.compraCasual),
                                   ],
                                 ),
                               ),
@@ -116,7 +122,7 @@ class _ItemWidgetState extends State<ItemWidget> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  LegendaWidget(32, 'Preço Máx.:'),
+                                  LegendaWidget(32, 'Preç. Máx.:'),
                                   QuantidadeWidget(60, widget.item.precoMaximo),
                                 ],
                               ),
@@ -128,7 +134,7 @@ class _ItemWidgetState extends State<ItemWidget> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  LegendaWidget(32, 'Preço Mín.:'),
+                                  LegendaWidget(32, 'Preç. Mín.:'),
                                   QuantidadeWidget(60, widget.item.precoMinimo),
                                 ],
                               ),
@@ -146,7 +152,8 @@ class _ItemWidgetState extends State<ItemWidget> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   LegendaWidget(31, 'Est. Atu:'),
-                                  QuantidadeWidget(40, widget.item.estoqueAtual),
+                                  QuantidadeWidget(
+                                      40, widget.item.estoqueAtual),
                                 ],
                               ),
                             ),
@@ -157,8 +164,9 @@ class _ItemWidgetState extends State<ItemWidget> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  LegendaWidget(30, 'Est. Máx.:'),
-                                  QuantidadeWidget(40, widget.item.estoqueMaximo),
+                                  LegendaWidget(31, 'Est. Máx.:'),
+                                  QuantidadeWidget(
+                                      40, widget.item.estoqueMaximo),
                                 ],
                               ),
                             ),
@@ -170,7 +178,8 @@ class _ItemWidgetState extends State<ItemWidget> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   LegendaWidget(30, 'Est. Mín.:'),
-                                  QuantidadeWidget(40, widget.item.estoqueMinimo),
+                                  QuantidadeWidget(
+                                      40, widget.item.estoqueMinimo),
                                 ],
                               ),
                             )
@@ -179,7 +188,7 @@ class _ItemWidgetState extends State<ItemWidget> {
                       ],
                     ),
                   ),
-                  MensagemWidget(),
+                  MensagemWidget(widget.item.nivel),
                 ],
               ),
             ),

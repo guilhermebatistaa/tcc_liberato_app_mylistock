@@ -7,4 +7,5 @@ class Item {
   String estoqueMaximo = "0";
   String estoqueMinimo = "0";
   late String id;
+  int nivel = 0;
 }
