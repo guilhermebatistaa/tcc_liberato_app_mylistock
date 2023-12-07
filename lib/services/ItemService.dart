@@ -1,3 +1,4 @@
+import 'package:intl/intl.dart';
 import 'package:my_app/Models/TabelaItem.dart';
 import 'package:my_app/components/listagem/ItemWidget.dart';
 import 'package:my_app/data/item_dao.dart';
@@ -112,6 +113,10 @@ class ItemService {
       }
 
       return retornoListaDeItensOrdenadaPrioridade;
+    } else {
+      listaDeItens.sort((a, b) {
+        return b.item.nome.compareTo(a.item.nome);
+      });
     }
 
     return listaDeItens;
@@ -154,6 +159,8 @@ class ItemService {
 
   salvarItem(ItemWidget itemWidget) async {
     var itemNomeExiste = await procurarItem(nome: itemWidget.item.nome);
+
+    conferirCampos(itemWidget);
 
     if (itemWidget.item.id == "" && itemNomeExiste.isEmpty) {
       Map<String, dynamic> mapaDeItem = transformarListParaMap(itemWidget);
@@ -203,5 +210,40 @@ class ItemService {
 
   excluirItem(String id) async {
     return await ItemDao().excluirItem(id);
+  }
+
+  conferirCampos(ItemWidget itemWidget) {
+    itemWidget.item.nome =
+        itemWidget.item.nome == "" ? "Item sem nome" : itemWidget.item.nome;
+    itemWidget.item.compraCasual == ""
+        ? itemWidget.item.compraCasual = "0"
+        : itemWidget.item.compraCasual;
+    itemWidget.item.estoqueAtual == ""
+        ? itemWidget.item.estoqueAtual = "0"
+        : itemWidget.item.estoqueAtual;
+    itemWidget.item.precoMaximo == ""
+        ? itemWidget.item.precoMaximo = "0"
+        : itemWidget.item.precoMaximo;
+    itemWidget.item.precoMinimo == ""
+        ? itemWidget.item.precoMinimo = "0"
+        : itemWidget.item.precoMinimo;
+    itemWidget.item.estoqueMaximo == ""
+        ? itemWidget.item.estoqueMaximo = "0"
+        : itemWidget.item.estoqueMaximo;
+    itemWidget.item.estoqueMinimo == ""
+        ? itemWidget.item.estoqueMinimo = "0"
+        : itemWidget.item.estoqueMinimo;
+
+    itemWidget.item.precoMaximo.replaceAll('.', '');
+    itemWidget.item.precoMinimo.replaceAll('.', '');
+
+    NumberFormat formatacao = NumberFormat("0.00", "pt_BR");
+
+    double valorDouble =
+        formatacao.parse(itemWidget.item.precoMaximo).toDouble();
+    itemWidget.item.precoMaximo = (valorDouble).toString();
+
+    valorDouble = formatacao.parse(itemWidget.item.precoMinimo).toDouble();
+    itemWidget.item.precoMinimo = (valorDouble).toString();
   }
 }

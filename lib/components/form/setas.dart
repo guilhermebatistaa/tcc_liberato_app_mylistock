@@ -1,20 +1,12 @@
 import 'package:flutter/material.dart';
 
 class BotaoSetas extends StatelessWidget {
-  //final TextEditingController controller;
+  TextEditingController controller;
 
-  const BotaoSetas({
-    //this.controller,
+  BotaoSetas(
+    this.controller, {
     super.key,
   });
-
-  String formatarNumero(double numero) {
-    String numeroFormatado =
-        numero.toStringAsFixed(2); // Formata com duas casas decimais
-    numeroFormatado =
-        numeroFormatado.replaceAll('.', ','); // Substitui o ponto pela vírgula
-    return numeroFormatado;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,43 +20,42 @@ class BotaoSetas extends StatelessWidget {
             height: 25,
             width: 30,
             child: ElevatedButton(
-              onPressed: () {},
-              // onPressed: () {
-              //   if (controller.text.contains(',')) {
-              //     String numeroComPonto = controller.text.replaceAll(',', '.');
-              //     double valorAtualDouble =
-              //         double.tryParse(numeroComPonto) ?? 0.00;
-              //     if (valorAtualDouble >= 0 && valorAtualDouble < 999.00) {
-              //       valorAtualDouble += 0.50;
+              onPressed: () {
+                if (controller.text.contains(',')) {
+                  String valorComPonto = controller.text.replaceAll(',', '.');
+                  double valorDouble = double.tryParse(valorComPonto) ?? 0.00;
+                  if (valorDouble >= 0 && valorDouble < 999.00) {
+                    valorDouble += 0.50;
 
-              //       ScaffoldMessenger.of(context).showSnackBar(
-              //         const SnackBar(
-              //           duration: Duration(milliseconds: 500),
-              //           content: Text('Aumentou estoque do item!'),
-              //         ),
-              //       );
+                    String numeroFormatado = valorDouble
+                        .toStringAsFixed(2); // Formata com duas casas decimais
+                    numeroFormatado = numeroFormatado.replaceAll(
+                        '.', ','); // Substitui o ponto pela vírgula
+                    controller.text = numeroFormatado;
 
-              //       String numeroFormatado = valorAtualDouble
-              //           .toStringAsFixed(2); // Formata com duas casas decimais
-              //       numeroFormatado = numeroFormatado.replaceAll(
-              //           '.', ','); // Substitui o ponto pela vírgula
-              //       controller.text = numeroFormatado;
-              //     }
-              //   } else {
-              //     int valorAtualInt = int.tryParse(controller.text) ?? 0;
-              //     if (valorAtualInt >= 0 && valorAtualInt < 999) {
-              //       valorAtualInt++;
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        duration: Duration(milliseconds: 100),
+                        content: Text('+ valor!'),
+                      ),
+                    );
+                  }
+                } else {
+                  int quantidadeInteiro = int.tryParse(controller.text)!;
+                  if (quantidadeInteiro >= 0 && quantidadeInteiro < 999) {
+                    quantidadeInteiro++;
 
-              //       ScaffoldMessenger.of(context).showSnackBar(
-              //         const SnackBar(
-              //           duration: Duration(milliseconds: 500),
-              //           content: Text('Aumentou estoque do item!'),
-              //         ),
-              //       );
-              //       controller.text = valorAtualInt.toString();
-              //     }
-              //   }
-              // },
+                    controller.text = quantidadeInteiro.toString();
+
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        duration: Duration(milliseconds: 100),
+                        content: Text('+ estoque!'),
+                      ),
+                    );
+                  }
+                }
+              },
               style: ElevatedButton.styleFrom(
                 padding: EdgeInsets.zero,
               ),
@@ -77,43 +68,42 @@ class BotaoSetas extends StatelessWidget {
             height: 25,
             width: 30,
             child: ElevatedButton(
-              onPressed: () {},
-              // onPressed: () {
-              //   if (controller.text.contains(',')) {
-              //     String numeroComPonto = controller.text.replaceAll(',', '.');
-              //     double valorAtualDouble =
-              //         double.tryParse(numeroComPonto) ?? 0.00;
-              //     if (valorAtualDouble > 0 && valorAtualDouble <= 999.00) {
-              //       valorAtualDouble -= 0.50;
+              onPressed: () {
+                if (controller.text.contains(',')) {
+                  String valorComPonto = controller.text.replaceAll(',', '.');
+                  double valorDouble = double.tryParse(valorComPonto) ?? 0.00;
+                  if (valorDouble > 0 && valorDouble <= 999.00) {
+                    valorDouble -= 0.50;
 
-              //       ScaffoldMessenger.of(context).showSnackBar(
-              //         const SnackBar(
-              //           duration: Duration(milliseconds: 500),
-              //           content: Text('Aumentou estoque do item!'),
-              //         ),
-              //       );
+                    String numeroFormatado = valorDouble
+                        .toStringAsFixed(2); // Formata com duas casas decimais
+                    numeroFormatado = numeroFormatado.replaceAll(
+                        '.', ','); // Substitui o ponto pela vírgula
+                    controller.text = numeroFormatado;
 
-              //       String numeroFormatado = valorAtualDouble
-              //           .toStringAsFixed(2); // Formata com duas casas decimais
-              //       numeroFormatado = numeroFormatado.replaceAll(
-              //           '.', ','); // Substitui o ponto pela vírgula
-              //       controller.text = numeroFormatado;
-              //     }
-              //   } else {
-              //     int valorAtualInt = int.tryParse(controller.text) ?? 0;
-              //     if (valorAtualInt > 0 && valorAtualInt <= 999) {
-              //       valorAtualInt--;
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        duration: Duration(milliseconds: 100),
+                        content: Text('- valor!'),
+                      ),
+                    );
+                  }
+                } else {
+                  int valorAtualInt = int.tryParse(controller.text) ?? 0;
+                  if (valorAtualInt > 0 && valorAtualInt <= 999) {
+                    valorAtualInt--;
 
-              //       ScaffoldMessenger.of(context).showSnackBar(
-              //         const SnackBar(
-              //           duration: Duration(milliseconds: 500),
-              //           content: Text('Aumentou estoque do item!'),
-              //         ),
-              //       );
-              //       controller.text = valorAtualInt.toString();
-              //     }
-              //   }
-              // },
+                    controller.text = valorAtualInt.toString();
+
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        duration: Duration(milliseconds: 100),
+                        content: Text('- estoque!'),
+                      ),
+                    );
+                  }
+                }
+              },
               style: ElevatedButton.styleFrom(
                 padding: EdgeInsets.zero,
               ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/Models/Item.dart';
+import 'package:my_app/components/listagem/quantidadeValor.dart';
 import 'package:my_app/components/shared/legenda.dart';
 import 'package:my_app/components/listagem/mensagem.dart';
 import 'package:my_app/components/listagem/quantidade.dart';
@@ -123,7 +124,8 @@ class _ItemWidgetState extends State<ItemWidget> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   LegendaWidget(32, 'Preç. Máx.:'),
-                                  QuantidadeWidget(60, widget.item.precoMaximo),
+                                  QuantidadeValorWidget(
+                                      60, widget.item.precoMaximo),
                                 ],
                               ),
                             ),
@@ -135,7 +137,8 @@ class _ItemWidgetState extends State<ItemWidget> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   LegendaWidget(32, 'Preç. Mín.:'),
-                                  QuantidadeWidget(60, widget.item.precoMinimo),
+                                  QuantidadeValorWidget(
+                                      60, widget.item.precoMinimo),
                                 ],
                               ),
                             )
@@ -188,7 +191,8 @@ class _ItemWidgetState extends State<ItemWidget> {
                       ],
                     ),
                   ),
-                  MensagemWidget(widget.item.nivel),
+                  MensagemWidget(widget.item.precoMaximo,
+                      widget.item.precoMaximo, widget.item.nivel),
                 ],
               ),
             ),

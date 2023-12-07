@@ -1,5 +1,5 @@
 class Item {
-  late String nome;
+  String nome = "";
   String compraCasual = "0";
   String estoqueAtual = "0";
   String precoMaximo = "0";

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/Models/Item.dart';
+import 'package:my_app/components/form/quantidadeValor.dart';
 import 'package:my_app/components/listagem/ItemWidget.dart';
 import 'package:my_app/components/shared/legenda.dart';
 import 'package:my_app/components/form/quantidade.dart';
@@ -74,254 +75,273 @@ class _FormScreenState extends State<FormScreen> {
     return Form(
       key: _formKey,
       child: Scaffold(
-        body: Center(
-          child: SingleChildScrollView(
-            child: Container(
-              height: 350,
-              width: 375,
-              decoration: BoxDecoration(
-                color: Colors.black26,
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(width: 2),
-              ),
+        body: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('assets/images/cesto.jpg'),
+              fit: BoxFit.cover,
+            ),
+          ),
+          child: Center(
+            child: SingleChildScrollView(
               child: Container(
-                color: Color.fromRGBO(119, 136, 153, 10),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Stack(
-                      alignment: Alignment.centerLeft,
-                      children: [
-                        Container(
-                          alignment: Alignment.center,
-                          child: Text(
-                            controllerId.text.isEmpty
-                                ? 'Cadastro de Item'
-                                : 'Alteração de Item',
-                            style: TextStyle(fontSize: 25),
-                            softWrap: true,
-                          ),
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(left: 10),
-                          child: IconButton(
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                            icon: Icon(Icons.arrow_back), // Ícone de voltar.
-                          ),
-                        ),
-                      ],
-                    ),
-                    Container(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                height: 350,
+                width: 375,
+                decoration: BoxDecoration(
+                  color: Colors.black26,
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(width: 2),
+                ),
+                child: Container(
+                  color: Color.fromRGBO(47, 151, 255, 0.965),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Stack(
+                        alignment: Alignment.centerLeft,
                         children: [
                           Container(
-                            height: 30,
-                            width: 308.5,
-                            child: Expanded(
-                              child: TextFormField(
-                                controller: controllerNome,
-                                // onFieldSubmitted: (value) {
-                                //   if (nameController.text.trim().isEmpty) {
-                                //     nameController.text = '';
-                                //     _formKey.currentState!.reset();
-                                //   }
-                                // },
-                                // validator: (String? value) {
-                                //   if (valueValidator(value)) {
-                                //     setState(() {
-                                //       _errorMessage = 'Insira o nome do item';
-                                //     });
-                                //   } else {
-                                //     setState(() {
-                                //       _errorMessage = null;
-                                //     });
-                                //   }
-                                //   return null;
-                                // },
-                                textAlign: TextAlign.start,
-                                decoration: InputDecoration(
-                                  border: OutlineInputBorder(),
-                                  hintText: 'Nome',
-                                  hintStyle: TextStyle(fontSize: 12),
-                                  fillColor: Colors.white70,
-                                  filled: true,
-                                  contentPadding:
-                                      EdgeInsets.symmetric(horizontal: 5),
-                                ),
-                              ),
+                            alignment: Alignment.center,
+                            child: Text(
+                              controllerId.text.isEmpty
+                                  ? 'Cadastro de Item'
+                                  : 'Alteração de Item',
+                              style: TextStyle(fontSize: 25),
+                              softWrap: true,
+                            ),
+                          ),
+                          Container(
+                            margin: EdgeInsets.only(left: 10),
+                            child: IconButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              icon: Icon(Icons.arrow_back), // Ícone de voltar.
                             ),
                           ),
                         ],
                       ),
-                    ),
-                    Container(
-                      //color: Colors.amberAccent,
-                      height: 167,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Container(
-                                width: 132,
-                                alignment: Alignment.centerRight,
-                                child: SizedBox(
-                                  width: 122,
+                      Container(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Container(
+                              height: 30,
+                              width: 308.5,
+                              child: Expanded(
+                                child: TextFormField(
+                                  controller: controllerNome,
+                                  // onFieldSubmitted: (value) {
+                                  //   if (nameController.text.trim().isEmpty) {
+                                  //     nameController.text = '';
+                                  //     _formKey.currentState!.reset();
+                                  //   }
+                                  // },
+                                  // validator: (String? value) {
+                                  //   if (valueValidator(value)) {
+                                  //     setState(() {
+                                  //       _errorMessage = 'Insira o nome do item';
+                                  //     });
+                                  //   } else {
+                                  //     setState(() {
+                                  //       _errorMessage = null;
+                                  //     });
+                                  //   }
+                                  //   return null;
+                                  // },
+                                  textAlign: TextAlign.start,
+                                  decoration: InputDecoration(
+                                    border: OutlineInputBorder(),
+                                    hintText: 'Nome',
+                                    hintStyle: TextStyle(fontSize: 12),
+                                    fillColor: Colors.white70,
+                                    filled: true,
+                                    contentPadding:
+                                        EdgeInsets.symmetric(horizontal: 5),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        //color: Colors.amberAccent,
+                        height: 167,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Container(
+                                  width: 132,
+                                  alignment: Alignment.centerRight,
+                                  child: SizedBox(
+                                    width: 122,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        LegendaWidget(44, 'Compra Casual:'),
+                                        CampoQuantidade(
+                                            40, controllerCompraCasual),
+                                        BotaoSetas(
+                                            controllerCompraCasual), //controllerEstAtu
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 132,
                                   child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      LegendaWidget(44, 'Compra Casual:'),
-                                      CampoQuantidade(
-                                          40, controllerCompraCasual),
-                                      BotaoSetas(), //controllerEstAtu
+                                      LegendaWidget(33, 'Preço Máx.:'),
+                                      CampoQuantidadeValor(
+                                          60, controllerPrecoMaximo),
+                                      BotaoSetas(
+                                          controllerPrecoMaximo), //controllerPreMax
                                     ],
                                   ),
                                 ),
-                              ),
-                              SizedBox(
-                                width: 132,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    LegendaWidget(33, 'Preço Máx.:'),
-                                    CampoQuantidade(60, controllerPrecoMaximo),
-                                    BotaoSetas(), //controllerPreMax
-                                  ],
-                                ),
-                              ),
-                              SizedBox(
-                                width: 132,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    LegendaWidget(33, 'Preço Mín.:'),
-                                    CampoQuantidade(60, controllerPrecoMinimo),
-                                    BotaoSetas(), //controllerPreMin
-                                  ],
-                                ),
-                              )
-                            ],
-                          ),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              SizedBox(
-                                width: 110,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    LegendaWidget(33, 'Est. Atual:'),
-                                    CampoQuantidade(40, controllerEstoqueAtual),
-                                    BotaoSetas(), //controllerEstAtu
-                                  ],
-                                ),
-                              ),
-                              SizedBox(
-                                width: 110,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    LegendaWidget(33, 'Est. Máx.:'),
-                                    CampoQuantidade(
-                                        40, controllerEstoqueMaximo),
-                                    BotaoSetas(), //controllerEstmax
-                                  ],
-                                ),
-                              ),
-                              SizedBox(
-                                width: 110,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    LegendaWidget(33, 'Est. Mín.:'),
-                                    CampoQuantidade(
-                                        40, controllerEstoqueMinimo),
-                                    BotaoSetas(), //controllerEstMin
-                                  ],
-                                ),
-                              )
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                    Stack(
-                      alignment: Alignment.centerLeft,
-                      children: [
-                        Container(
-                          alignment: Alignment.center,
-                          child: ElevatedButton(
-                            onPressed: () async {
-                              if (_formKey.currentState!.validate()) {
-                                Item item = Item();
-                                item.nome = controllerNome.text;
-                                item.compraCasual = controllerCompraCasual.text;
-                                item.estoqueAtual = controllerEstoqueAtual.text;
-                                item.precoMaximo = controllerPrecoMaximo.text;
-                                item.precoMinimo = controllerPrecoMinimo.text;
-                                item.estoqueMaximo =
-                                    controllerEstoqueMaximo.text;
-                                item.estoqueMinimo =
-                                    controllerEstoqueMinimo.text;
-                                item.id = controllerId.text;
-
-                                await ItemService()
-                                    .salvarItem(ItemWidget(item));
-
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text(_errorMessage ??
-                                        (controllerId.text.isEmpty
-                                            ? 'Cadastrando novo item!'
-                                            : 'Salvando alterações')),
+                                SizedBox(
+                                  width: 132,
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      LegendaWidget(33, 'Preço Mín.:'),
+                                      CampoQuantidadeValor(
+                                          60, controllerPrecoMinimo),
+                                      BotaoSetas(
+                                          controllerPrecoMinimo), //controllerPreMin
+                                    ],
                                   ),
-                                );
-                                Navigator.pop(context);
-                              }
-                            },
-                            child: Text(
-                              controllerId.text.isEmpty
-                                  ? 'Adicionar'
-                                  : 'Salvar',
+                                )
+                              ],
                             ),
-                          ),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                SizedBox(
+                                  width: 110,
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      LegendaWidget(33, 'Est. Atual:'),
+                                      CampoQuantidade(
+                                          40, controllerEstoqueAtual),
+                                      BotaoSetas(
+                                          controllerEstoqueAtual), //controllerEstAtu
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 110,
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      LegendaWidget(33, 'Est. Máx.:'),
+                                      CampoQuantidade(
+                                          40, controllerEstoqueMaximo),
+                                      BotaoSetas(
+                                          controllerEstoqueMaximo), //controllerEstmax
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 110,
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      LegendaWidget(33, 'Est. Mín.:'),
+                                      CampoQuantidade(
+                                          40, controllerEstoqueMinimo),
+                                      BotaoSetas(
+                                          controllerEstoqueMinimo), //controllerEstMin
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
+                          ],
                         ),
-                        if (controllerId.text != "")
+                      ),
+                      Stack(
+                        alignment: Alignment.centerLeft,
+                        children: [
                           Container(
-                            margin: EdgeInsets.only(left: 10),
-                            child: IconButton(
+                            alignment: Alignment.center,
+                            child: ElevatedButton(
                               onPressed: () async {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (contextNew) => ExclusionScreen(
-                                      nome: widget.nome,
-                                      id: widget.id,
+                                if (_formKey.currentState!.validate()) {
+                                  Item item = Item();
+                                  item.nome = controllerNome.text;
+                                  item.compraCasual =
+                                      controllerCompraCasual.text;
+                                  item.estoqueAtual =
+                                      controllerEstoqueAtual.text;
+                                  item.precoMaximo = controllerPrecoMaximo.text;
+                                  item.precoMinimo = controllerPrecoMinimo.text;
+                                  item.estoqueMaximo =
+                                      controllerEstoqueMaximo.text;
+                                  item.estoqueMinimo =
+                                      controllerEstoqueMinimo.text;
+                                  item.id = controllerId.text;
+
+                                  await ItemService()
+                                      .salvarItem(ItemWidget(item));
+
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(_errorMessage ??
+                                          (controllerId.text.isEmpty
+                                              ? 'Cadastrando novo item!'
+                                              : 'Salvando alterações')),
                                     ),
-                                  ),
-                                ).then((result) {
-                                  if (result == true) {
-                                    Navigator.of(context).pop();
-                                  }
-                                });
+                                  );
+                                  Navigator.pop(context);
+                                }
                               },
-                              icon: Icon(Icons.delete_forever),
+                              child: Text(
+                                controllerId.text.isEmpty
+                                    ? 'Adicionar'
+                                    : 'Salvar',
+                              ),
                             ),
                           ),
-                      ],
-                    )
-                  ],
+                          if (controllerId.text != "")
+                            Container(
+                              margin: EdgeInsets.only(left: 10),
+                              child: IconButton(
+                                onPressed: () async {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (contextNew) => ExclusionScreen(
+                                        nome: widget.nome,
+                                        id: widget.id,
+                                      ),
+                                    ),
+                                  ).then((result) {
+                                    if (result == true) {
+                                      Navigator.of(context).pop();
+                                    }
+                                  });
+                                },
+                                icon: Icon(Icons.delete_forever),
+                              ),
+                            ),
+                        ],
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),

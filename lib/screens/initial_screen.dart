@@ -12,6 +12,8 @@ class InitialScreen extends StatefulWidget {
 }
 
 class _InitialScreenState extends State<InitialScreen> {
+  bool ordenacao = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,12 +27,18 @@ class _InitialScreenState extends State<InitialScreen> {
             icon: Icon(Icons.refresh),
           )
         ],
-        title: const Text('Lista: Ordem Cadastrado'),
+        title: const Text('Lista: Ordem Prioridade'),
       ),
-      body: Padding(
-        padding: EdgeInsets.only(top: 8, bottom: 80),
+      body: Container(
+        padding: EdgeInsets.only(top: 8, bottom: 8),
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/images/estante.jpg'),
+            fit: BoxFit.cover,
+          ),
+        ),
         child: FutureBuilder<List<ItemWidget>>(
-          future: ItemService().buscarTodosOsItens(),
+          future: ItemService().buscarTodosOsItens(ordenacao),
           builder: (context, snapshot) {
             List<ItemWidget>? items = snapshot.data;
             switch (snapshot.connectionState) {
@@ -90,20 +98,44 @@ class _InitialScreenState extends State<InitialScreen> {
           },
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (contextNew) => FormScreen(
-                itemContext: context,
-              ),
+      bottomNavigationBar: BottomAppBar(
+        // Adicione seus itens de rodapé aqui
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            IconButton(
+              icon: Icon(Icons.exit_to_app),
+              onPressed: () {},
             ),
-          ).then((value) => setState(() {
-                print('Recarregando a tela inicial');
-              }));
-        },
-        child: const Icon(Icons.add),
+            IconButton(
+              icon: Icon(Icons.list),
+              onPressed: () {
+                setState(() {
+                  ordenacao == true
+                      ? ordenacao = false
+                      : ordenacao == false
+                          ? ordenacao = true
+                          : ordenacao;
+                });
+              },
+            ),
+            IconButton(
+              icon: Icon(Icons.add),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (contextNew) => FormScreen(
+                      itemContext: context,
+                    ),
+                  ),
+                ).then((value) => setState(() {
+                      print('Recarregando a tela inicial');
+                    }));
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
