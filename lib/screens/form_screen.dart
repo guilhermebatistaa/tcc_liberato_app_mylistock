@@ -63,13 +63,6 @@ class _FormScreenState extends State<FormScreen> {
 
   String? _errorMessage;
 
-  bool valueValidator(String? value) {
-    if (value != null && value.isEmpty) {
-      return true;
-    }
-    return false;
-  }
-
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -132,24 +125,6 @@ class _FormScreenState extends State<FormScreen> {
                               child: Expanded(
                                 child: TextFormField(
                                   controller: controllerNome,
-                                  // onFieldSubmitted: (value) {
-                                  //   if (nameController.text.trim().isEmpty) {
-                                  //     nameController.text = '';
-                                  //     _formKey.currentState!.reset();
-                                  //   }
-                                  // },
-                                  // validator: (String? value) {
-                                  //   if (valueValidator(value)) {
-                                  //     setState(() {
-                                  //       _errorMessage = 'Insira o nome do item';
-                                  //     });
-                                  //   } else {
-                                  //     setState(() {
-                                  //       _errorMessage = null;
-                                  //     });
-                                  //   }
-                                  //   return null;
-                                  // },
                                   textAlign: TextAlign.start,
                                   decoration: InputDecoration(
                                     border: OutlineInputBorder(),
@@ -167,7 +142,6 @@ class _FormScreenState extends State<FormScreen> {
                         ),
                       ),
                       Container(
-                        //color: Colors.amberAccent,
                         height: 167,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,

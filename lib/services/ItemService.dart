@@ -12,111 +12,116 @@ class ItemService {
 
     List<ItemWidget> listaDeItens = transformarMapParaList(listaDeMapasDeItens);
 
+    //Primeira Parte - Compra Casual
+    List<ItemWidget> itensComCompraCasual =
+        listaDeItens.where((item) => item.item.compraCasual != "0").toList();
+
+    itensComCompraCasual.sort((a, b) {
+      int comparacaoCompraCasual =
+          a.item.compraCasual.compareTo(b.item.compraCasual);
+      if (comparacaoCompraCasual != 0) {
+        return comparacaoCompraCasual;
+      }
+
+      return a.item.nome.compareTo(b.item.nome);
+    });
+
+    List<ItemWidget> retornoListaItensOrdemPrioridade = [];
+    for (var item in itensComCompraCasual) {
+      item.item.nivel = 0;
+      retornoListaItensOrdemPrioridade.add(item);
+      listaDeItens.remove(item);
+    }
+
+    //Segunda Parte - Estoque com Urgência
+    List<ItemWidget> listaItensComEstoqueBaixo = listaDeItens.where((item) {
+      int estoqueAtual = int.tryParse(item.item.estoqueAtual)!;
+      int estoqueMinimo = int.tryParse(item.item.estoqueMinimo)!;
+      return estoqueAtual <= estoqueMinimo;
+    }).toList();
+
+    listaItensComEstoqueBaixo.sort((a, b) {
+      int valorDiferencaA = int.tryParse(a.item.estoqueAtual)! -
+          int.tryParse(a.item.estoqueMinimo)!;
+      int valorDiferencaB = int.tryParse(b.item.estoqueAtual)! -
+          int.tryParse(b.item.estoqueMinimo)!;
+
+      if (valorDiferencaA != valorDiferencaB) {
+        return valorDiferencaA.compareTo(valorDiferencaB);
+      }
+
+      return a.item.nome.compareTo(b.item.nome);
+    });
+
+    for (var item in listaItensComEstoqueBaixo) {
+      item.item.nivel = 1;
+      retornoListaItensOrdemPrioridade.add(item);
+      listaDeItens.remove(item);
+    }
+
+    //Terceira Parte - Estoque Médio
+    List<ItemWidget> listaItensComEstoqueMedio = listaDeItens.where((item) {
+      int estoqueAtual = int.tryParse(item.item.estoqueAtual)!;
+      int estoqueMaximo = int.tryParse(item.item.estoqueMaximo)!;
+      return estoqueAtual < estoqueMaximo;
+    }).toList();
+
+    listaItensComEstoqueMedio.sort((a, b) {
+      int valorDiferencaA = int.tryParse(a.item.estoqueAtual)! -
+          int.tryParse(a.item.estoqueMaximo)!;
+      int valorDiferencaB = int.tryParse(b.item.estoqueAtual)! -
+          int.tryParse(b.item.estoqueMaximo)!;
+
+      if (valorDiferencaA != valorDiferencaB) {
+        return valorDiferencaA.compareTo(valorDiferencaB);
+      }
+
+      return a.item.nome.compareTo(b.item.nome);
+    });
+
+    for (var item in listaItensComEstoqueMedio) {
+      item.item.nivel = 2;
+      retornoListaItensOrdemPrioridade.add(item);
+      listaDeItens.remove(item);
+    }
+
+    //Quarta Parte - Estoque Cheio
+    List<ItemWidget> listaItensComEstoqueAlto = listaDeItens.where((item) {
+      int estoqueAtual = int.tryParse(item.item.estoqueAtual)!;
+      int estoqueMaximo = int.tryParse(item.item.estoqueMaximo)!;
+      return estoqueAtual >= estoqueMaximo;
+    }).toList();
+
+    listaItensComEstoqueAlto.sort((a, b) {
+      int valorDiferencaA = int.tryParse(a.item.estoqueAtual)! -
+          int.tryParse(a.item.estoqueMaximo)!;
+      int valorDiferencaB = int.tryParse(b.item.estoqueAtual)! -
+          int.tryParse(b.item.estoqueMaximo)!;
+
+      if (valorDiferencaA != valorDiferencaB) {
+        return valorDiferencaA.compareTo(valorDiferencaB);
+      }
+
+      return a.item.nome.compareTo(b.item.nome);
+    });
+
+    for (var item in listaItensComEstoqueAlto) {
+      item.item.nivel = 3;
+      retornoListaItensOrdemPrioridade.add(item);
+      listaDeItens.remove(item);
+    }
+
     if (ordenadoPorPrioridade) {
-      //Primeira Parte - Compra Casual
-      List<ItemWidget> itensComCompraCasual =
-          listaDeItens.where((item) => item.item.compraCasual != "0").toList();
-
-      itensComCompraCasual.sort((a, b) {
-        int comparacaoCompraCasual =
-            a.item.compraCasual.compareTo(b.item.compraCasual);
-        if (comparacaoCompraCasual != 0) {
-          return comparacaoCompraCasual;
-        }
-
-        return a.item.nome.compareTo(b.item.nome);
-      });
-
-      List<ItemWidget> retornoListaDeItensOrdenadaPrioridade = [];
-      for (var item in itensComCompraCasual) {
-        item.item.nivel = 0;
-        retornoListaDeItensOrdenadaPrioridade.add(item);
-        listaDeItens.remove(item);
-      }
-
-      //Segunda Parte - Estoque com Urgência
-      List<ItemWidget> listaItensComEstoqueBaixo = listaDeItens.where((item) {
-        int estoqueAtual = int.tryParse(item.item.estoqueAtual)!;
-        int estoqueMinimo = int.tryParse(item.item.estoqueMinimo)!;
-        return estoqueAtual <= estoqueMinimo;
-      }).toList();
-
-      listaItensComEstoqueBaixo.sort((a, b) {
-        int valorDiferencaA = int.tryParse(a.item.estoqueAtual)! -
-            int.tryParse(a.item.estoqueMinimo)!;
-        int valorDiferencaB = int.tryParse(b.item.estoqueAtual)! -
-            int.tryParse(b.item.estoqueMinimo)!;
-
-        if (valorDiferencaA != valorDiferencaB) {
-          return valorDiferencaA.compareTo(valorDiferencaB);
-        }
-
-        return a.item.nome.compareTo(b.item.nome);
-      });
-
-      for (var item in listaItensComEstoqueBaixo) {
-        item.item.nivel = 1;
-        retornoListaDeItensOrdenadaPrioridade.add(item);
-        listaDeItens.remove(item);
-      }
-
-      //Terceira Parte - Estoque Médio
-      List<ItemWidget> listaItensComEstoqueMedio = listaDeItens.where((item) {
-        int estoqueAtual = int.tryParse(item.item.estoqueAtual)!;
-        int estoqueMaximo = int.tryParse(item.item.estoqueMaximo)!;
-        return estoqueAtual < estoqueMaximo;
-      }).toList();
-
-      listaItensComEstoqueMedio.sort((a, b) {
-        int valorDiferencaA = int.tryParse(a.item.estoqueAtual)! -
-            int.tryParse(a.item.estoqueMaximo)!;
-        int valorDiferencaB = int.tryParse(b.item.estoqueAtual)! -
-            int.tryParse(b.item.estoqueMaximo)!;
-
-        if (valorDiferencaA != valorDiferencaB) {
-          return valorDiferencaA.compareTo(valorDiferencaB);
-        }
-
-        return a.item.nome.compareTo(b.item.nome);
-      });
-
-      for (var item in listaItensComEstoqueMedio) {
-        item.item.nivel = 2;
-        retornoListaDeItensOrdenadaPrioridade.add(item);
-        listaDeItens.remove(item);
-      }
-
-      //Quarta Parte - Estoque Cheio
-      List<ItemWidget> listaItensComEstoqueAlto = listaDeItens.where((item) {
-        int estoqueAtual = int.tryParse(item.item.estoqueAtual)!;
-        int estoqueMaximo = int.tryParse(item.item.estoqueMaximo)!;
-        return estoqueAtual >= estoqueMaximo;
-      }).toList();
-
-      listaItensComEstoqueAlto.sort((a, b) {
-        int valorDiferencaA = int.tryParse(a.item.estoqueAtual)! -
-            int.tryParse(a.item.estoqueMaximo)!;
-        int valorDiferencaB = int.tryParse(b.item.estoqueAtual)! -
-            int.tryParse(b.item.estoqueMaximo)!;
-
-        if (valorDiferencaA != valorDiferencaB) {
-          return valorDiferencaA.compareTo(valorDiferencaB);
-        }
-
-        return a.item.nome.compareTo(b.item.nome);
-      });
-
-      for (var item in listaItensComEstoqueAlto) {
-        item.item.nivel = 3;
-        retornoListaDeItensOrdenadaPrioridade.add(item);
-        listaDeItens.remove(item);
-      }
-
-      return retornoListaDeItensOrdenadaPrioridade;
+      return retornoListaItensOrdemPrioridade;
     } else {
-      listaDeItens.sort((a, b) {
-        return b.item.nome.compareTo(a.item.nome);
+      List<ItemWidget> retornolistaItensOrdemAlfabetica =
+          retornoListaItensOrdemPrioridade;
+
+      retornolistaItensOrdemAlfabetica.sort((a, b) {
+        return a.item.nome.compareTo(b.item.nome);
       });
+
+      return retornolistaItensOrdemAlfabetica;
     }
 
     return listaDeItens;

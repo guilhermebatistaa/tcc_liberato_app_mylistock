@@ -27,7 +27,11 @@ class _InitialScreenState extends State<InitialScreen> {
             icon: Icon(Icons.refresh),
           )
         ],
-        title: const Text('Lista: Ordem Prioridade'),
+        title: Text(
+          ordenacao == true
+              ? 'Lista: Ordem Prioridade'
+              : 'Lista: Ordem Alfabética',
+        ),
       ),
       body: Container(
         padding: EdgeInsets.only(top: 8, bottom: 8),
