@@ -109,7 +109,9 @@ class _InitialScreenState extends State<InitialScreen> {
           children: [
             IconButton(
               icon: Icon(Icons.exit_to_app),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
             ),
             IconButton(
               icon: Icon(Icons.list),

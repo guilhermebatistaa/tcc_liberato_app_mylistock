@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/data/item_inherited.dart';
 import 'package:my_app/screens/initial_screen.dart';
+import 'package:my_app/screens/login_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,9 +17,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: ItemInherited(
-        child: const InitialScreen(),
-      ),
+      home: LoginScreen(),
+
+      // home: ItemInherited(
+      //   child: const InitialScreen(),
+      // ),
     );
   }
 }
