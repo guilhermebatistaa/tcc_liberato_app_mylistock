@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:my_app/Models/Constants.dart';
 import 'package:my_app/Models/Login.dart';
 import 'package:my_app/screens/initial_screen.dart';
 import 'package:my_app/screens/signup_screen.dart';
@@ -17,7 +18,9 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController _mailImputController = TextEditingController();
   TextEditingController _passwordImputController = TextEditingController();
 
-  bool showPassword = false;
+  bool _obscurePassword = true;
+
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -45,15 +48,24 @@ class _LoginScreenState extends State<LoginScreen> {
                   'Login',
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    fontSize: 24.0,
+                    fontSize: 50.0,
                     fontWeight: FontWeight.bold,
                     color: Colors.deepPurple, // Cor roxa
                   ),
                 ),
                 Form(
+                  key: _formKey,
                   child: Column(
                     children: [
                       TextFormField(
+                        validator: (value) {
+                          if (value!.length < 5) {
+                            return "E-mail curto demais";
+                          } else if (!value.contains("@")) {
+                            return "E-mail sem @";
+                          }
+                          return null;
+                        },
                         controller: _mailImputController,
                         autofocus: true,
                         decoration: InputDecoration(
@@ -61,6 +73,13 @@ class _LoginScreenState extends State<LoginScreen> {
                             prefixIcon: Icon(Icons.mail_outline)),
                       ),
                       TextFormField(
+                        validator: (value) {
+                          if (value!.length < 6) {
+                            return "Senha curta demais";
+                          }
+                          return null;
+                        },
+                        obscureText: _obscurePassword,
                         controller: _passwordImputController,
                         autofocus: true,
                         decoration: InputDecoration(
@@ -71,22 +90,42 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 Padding(padding: EdgeInsets.all(10)),
+                Row(
+                  children: [
+                    Checkbox(
+                      value: _obscurePassword,
+                      onChanged: (newValue) {
+                        setState(() {
+                          _obscurePassword = newValue!;
+                        });
+                      },
+                    ),
+                    Text(
+                      "Ocultar senha",
+                    )
+                  ],
+                ),
+                Padding(padding: EdgeInsets.all(10)),
                 Container(
                   alignment: Alignment.center,
                   child: ElevatedButton(
                     onPressed: () async {
-                      _doLogin();
-
-                      //validar no banco
-
-                      //if (validado banco) {}
-
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (contextNew) => InitialScreen(),
-                        ),
-                      );
+                      String resultado = await _doLogin();
+                      if (resultado == "Login com sucesso!") {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (contextNew) => InitialScreen(),
+                          ),
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text(resultado)),
+                        );
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text(resultado)),
+                        );
+                      }
                     },
                     child: Text(
                       'Entrar',
@@ -127,21 +166,33 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  void _doLogin() async {
-    String mailForm = this._mailImputController.text;
-    String passwordForm = this._passwordImputController.text;
+  Future<String> _doLogin() async {
+    if (_formKey.currentState!.validate()) {
+      String mailForm = this._mailImputController.text;
+      String passwordForm = this._passwordImputController.text;
 
-    Login loginUser = await _getSavedLogin();
-    print(loginUser);
+      Login savedLogin = await _getSavedLogin(mailForm);
+
+      if (mailForm == savedLogin.mail && passwordForm == savedLogin.password) {
+        return "Login com sucesso!";
+      }
+
+      return 'E-mail ou Senha incorreta!';
+    } else {
+      return 'Ajuste os campos!';
+    }
   }
 
-  Future<Login> _getSavedLogin() async {
+  Future<Login> _getSavedLogin(String mailForm) async {
+    mailForm = mailForm.split('@').first;
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? jsonLogin = prefs.getString("LOGGIN_USER_INFOS");
+    String? jsonLogin = prefs.getString("LOGGIN_USER_INFOS$mailForm");
 
     Map<String, dynamic> mapLogin = json.decode(jsonLogin!);
 
     Login login = Login.fromJson(mapLogin);
+
+    Constants.usuario = login.name!;
 
     return login;
   }

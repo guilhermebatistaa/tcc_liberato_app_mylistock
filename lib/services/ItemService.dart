@@ -12,6 +12,18 @@ class ItemService {
 
     List<ItemWidget> listaDeItens = transformarMapParaList(listaDeMapasDeItens);
 
+    //Pré Primeira Parte - Compra Casual
+    List<ItemWidget> itensSemNome = listaDeItens
+        .where((item) => item.item.nome == "Item sem nome")
+        .toList();
+
+    List<ItemWidget> retornoListaItensOrdemPrioridade = [];
+    for (var item in itensSemNome) {
+      item.item.nivel = 4;
+      retornoListaItensOrdemPrioridade.add(item);
+      listaDeItens.remove(item);
+    }
+
     //Primeira Parte - Compra Casual
     List<ItemWidget> itensComCompraCasual =
         listaDeItens.where((item) => item.item.compraCasual != "0").toList();
@@ -26,7 +38,6 @@ class ItemService {
       return a.item.nome.compareTo(b.item.nome);
     });
 
-    List<ItemWidget> retornoListaItensOrdemPrioridade = [];
     for (var item in itensComCompraCasual) {
       item.item.nivel = 0;
       retornoListaItensOrdemPrioridade.add(item);

@@ -1,3 +1,5 @@
+import 'package:my_app/Models/Constants.dart';
+
 class TabelaItem {
   static const String nomeTabela = 'Item';
   static const String nome = 'nome';

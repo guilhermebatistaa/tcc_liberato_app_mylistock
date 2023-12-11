@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_app/Models/Constants.dart';
 import 'package:my_app/components/listagem/ItemWidget.dart';
 import 'package:my_app/data/item_dao.dart';
 import 'package:my_app/screens/form_screen.dart';
@@ -29,8 +30,8 @@ class _InitialScreenState extends State<InitialScreen> {
         ],
         title: Text(
           ordenacao == true
-              ? 'Lista: Ordem Prioridade'
-              : 'Lista: Ordem Alfabética',
+              ? 'LiStock: Ordem Prioridade'
+              : 'LiStock: Ordem Alfabética',
         ),
       ),
       body: Container(
@@ -90,7 +91,10 @@ class _InitialScreenState extends State<InitialScreen> {
                         Icon(Icons.error_outline, size: 128),
                         Text(
                           'Não há nenhum item',
-                          style: TextStyle(fontSize: 32),
+                          style: TextStyle(
+                              fontSize: 32,
+                              color: Color.fromRGBO(255, 69, 0,
+                                  1.0)), // Substitua "Colors.red" pela cor desejada
                         ),
                       ],
                     ),
@@ -107,6 +111,7 @@ class _InitialScreenState extends State<InitialScreen> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Text('Olá ' + Constants.usuario + "!"),
             IconButton(
               icon: Icon(Icons.exit_to_app),
               onPressed: () {

@@ -32,13 +32,6 @@ class BotaoSetas extends StatelessWidget {
                     numeroFormatado = numeroFormatado.replaceAll(
                         '.', ','); // Substitui o ponto pela vírgula
                     controller.text = numeroFormatado;
-
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        duration: Duration(milliseconds: 100),
-                        content: Text('+ valor!'),
-                      ),
-                    );
                   }
                 } else {
                   int quantidadeInteiro = int.tryParse(controller.text)!;
@@ -46,13 +39,6 @@ class BotaoSetas extends StatelessWidget {
                     quantidadeInteiro++;
 
                     controller.text = quantidadeInteiro.toString();
-
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        duration: Duration(milliseconds: 100),
-                        content: Text('+ estoque!'),
-                      ),
-                    );
                   }
                 }
               },
@@ -80,13 +66,6 @@ class BotaoSetas extends StatelessWidget {
                     numeroFormatado = numeroFormatado.replaceAll(
                         '.', ','); // Substitui o ponto pela vírgula
                     controller.text = numeroFormatado;
-
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        duration: Duration(milliseconds: 100),
-                        content: Text('- valor!'),
-                      ),
-                    );
                   }
                 } else {
                   int valorAtualInt = int.tryParse(controller.text) ?? 0;
@@ -94,13 +73,6 @@ class BotaoSetas extends StatelessWidget {
                     valorAtualInt--;
 
                     controller.text = valorAtualInt.toString();
-
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        duration: Duration(milliseconds: 100),
-                        content: Text('- estoque!'),
-                      ),
-                    );
                   }
                 }
               },

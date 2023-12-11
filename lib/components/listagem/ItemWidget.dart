@@ -49,15 +49,16 @@ class _ItemWidgetState extends State<ItemWidget> {
             child: Container(
               margin: EdgeInsets.symmetric(horizontal: 20),
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(4.0),
-                color: widget.item.nivel == 0
-                    ? Color.fromRGBO(165, 42, 42, 1.0) // Vermelho
-                    : widget.item.nivel == 1
-                        ? Color.fromRGBO(255, 69, 0, 1.0) // Verde
-                        : widget.item.nivel == 2
-                            ? Color.fromRGBO(255, 215, 0, 1.0) // Azul
-                            : Color.fromRGBO(46, 139, 87, 10),
-              ),
+                  borderRadius: BorderRadius.circular(4.0),
+                  color: widget.item.nivel == 0
+                      ? Color.fromRGBO(165, 42, 42, 1.0)
+                      : widget.item.nivel == 1
+                          ? Color.fromRGBO(255, 69, 0, 1.0)
+                          : widget.item.nivel == 2
+                              ? Color.fromRGBO(255, 215, 0, 1.0)
+                              : widget.item.nivel == 3
+                                  ? Color.fromRGBO(46, 139, 87, 10)
+                                  : Color.fromRGBO(99, 99, 99, 1)),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -192,7 +193,7 @@ class _ItemWidgetState extends State<ItemWidget> {
                     ),
                   ),
                   MensagemWidget(widget.item.precoMaximo,
-                      widget.item.precoMaximo, widget.item.nivel),
+                      widget.item.precoMinimo, widget.item.nivel),
                 ],
               ),
             ),
