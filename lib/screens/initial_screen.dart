@@ -115,6 +115,9 @@ class _InitialScreenState extends State<InitialScreen> {
             IconButton(
               icon: Icon(Icons.exit_to_app),
               onPressed: () {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text("Você deslogou!")),
+                );
                 Navigator.of(context).pop();
               },
             ),

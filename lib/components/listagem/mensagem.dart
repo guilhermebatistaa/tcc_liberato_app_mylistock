@@ -30,13 +30,13 @@ class MensagemWidget extends StatelessWidget {
       padding: EdgeInsets.fromLTRB(40, 5, 40, 10),
       child: Text(
         nivel == 0
-            ? 'Este item é uma compra CASUAL!\nCompre a qualquer preço!'
+            ? 'Este item é uma compra CASUAL!\nCompre a qualquer preço.'
             : nivel == 1
-                ? 'O Estoque está em URGÊNCIA!\nPague até o Preço Máx.: $sifrao $precoMaximo!'
+                ? 'O Estoque está em URGÊNCIA!\nCompre em preço normal.\n*Até o Preço Máx.: $sifrao $precoMaximo!'
                 : nivel == 2
-                    ? 'O Estoque está em FALTA!\nCompre em promoção!\n*Abaixo de $sifrao $precoMinimo!'
+                    ? 'O Estoque está em FALTA!\nCompre em promoção.\n*Abaixo de $sifrao $precoMinimo!'
                     : nivel == 3
-                        ? 'O estoque está COMPLETO, não precisa comprar!'
+                        ? 'O estoque está COMPLETO!\nNão precisa comprar.'
                         : 'Aguardando cadastro do nome!',
         style: TextStyle(fontSize: 12),
         softWrap: true,
