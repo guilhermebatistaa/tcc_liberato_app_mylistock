@@ -1,2 +1,3 @@
 # teste_myapp_lib
-testando uma description.
+
+App gerenciador de estoque em Flutter.
