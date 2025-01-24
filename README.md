@@ -1,3 +1,3 @@
 # teste_myapp_lib
 
-App gerenciador de estoque em Flutter.
+TCC - LiStock, app gerenciador de estoque de alimentos em Flutter/Dart.
